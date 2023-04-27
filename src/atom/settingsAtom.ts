@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export interface SettingsState {
+export interface SettingsStateInterface {
   pomodoro: number;
   shortBreak: number;
   longBreak: number;
@@ -9,7 +9,7 @@ export interface SettingsState {
   isOpen: boolean;
 }
 
-const defaultSettingsState: SettingsState = {
+const defaultSettingsState: SettingsStateInterface = {
   pomodoro: 25,
   shortBreak: 5,
   longBreak: 15,
@@ -18,7 +18,7 @@ const defaultSettingsState: SettingsState = {
   isOpen: false,
 };
 
-export const settingsState = atom<SettingsState>({
+export const settingsState = atom<SettingsStateInterface>({
   key: "settingsState",
   default: defaultSettingsState,
 });

@@ -6,7 +6,9 @@ type UnderlineProps = {
 
 const Underline: React.FC<UnderlineProps> = ({ cssClasses }) => {
   return (
-    <span className={`w-full h-[5px] block bg-[#E3E1E1] ${cssClasses}`}></span>
+    <span
+      className={`w-full h-[1px] block bgs-[#E3E1E1] bg-70F3F8 ${cssClasses}`}
+    ></span>
   );
 };
 export default Underline;

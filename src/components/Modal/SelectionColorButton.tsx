@@ -1,8 +1,9 @@
 import { CheckIcon } from "@/public/CheckIcon";
-import React from "react";
+import React, { useEffect, useState } from "react";
 type SelectionColorButtonProps = {
-  isActive: boolean;
   color: "red" | "cyan" | "violet";
+  activeColor: "red" | "cyan" | "violet";
+  switchColor: (color: "red" | "cyan" | "violet") => void;
 };
 
 // export type colorInterface =
@@ -20,9 +21,14 @@ type SelectionColorButtonProps = {
 // white: "hsl(0, 100%, 100%)",
 
 const SelectionColorButton: React.FC<SelectionColorButtonProps> = ({
-  isActive,
   color,
+  activeColor,
+  switchColor,
 }) => {
+  const [isActiveColor, setIsActiveColor] = useState<boolean>(false);
+  useEffect(() => {
+    activeColor === color ? setIsActiveColor(true) : setIsActiveColor(false);
+  }, [activeColor, color]);
   const background =
     color === "red"
       ? "bg-F87070"
@@ -30,14 +36,15 @@ const SelectionColorButton: React.FC<SelectionColorButtonProps> = ({
       ? "bg-70F3F8"
       : "bg-D881F8";
   return (
-    <div
+    <button
+      onClick={() => switchColor(color)}
       className={`w-[40px] aspect-square  ${
-        isActive ? "text-white opacity-100" : "opacity-[0.73]"
+        isActiveColor ? "text-white opacity-100" : "opacity-[0.73]"
       } 
     rounded-full flex font-bold justify-center items-center ${background}`}
     >
-      {isActive && <CheckIcon className="text-3xl text-161932" />}
-    </div>
+      {isActiveColor && <CheckIcon className="text-3xl text-161932" />}
+    </button>
   );
 };
 export default SelectionColorButton;
