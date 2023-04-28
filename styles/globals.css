@@ -13,3 +13,47 @@ h3 {
 .modalBackground {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
 }
+
+.clockBackground {
+  background: linear-gradient(315deg, #2e325a 0%, #0e112a 100%);
+  box-shadow: -50px -50px 100px #272c5a, 50px 50px 100px #121530;
+}
+
+.tlo {
+  /* width: 80px; */
+  /* height: 80px; */
+  /* border: 10px solid green; */
+  /* border-radius: 50%; */
+  /* position: absolute; */
+  background: conic-gradient(#f87070 270deg, #161932 270deg);
+  stroke-linecap: round;
+  /* background: conic-gradient(
+    #F87070 6deg,
+    orange 6deg 18deg,
+    yellow 18deg 45deg,
+    green 45deg 110deg,
+    blue 110deg 200deg,
+    purple 200deg
+  ); */
+}
+
+/* .demo {
+  flex-direction: column;
+  display: flex;
+  width: 120px;
+} */
+
+.progress {
+  transform: rotate(-90deg);
+}
+
+.progress__meter,
+.progress__value {
+  fill: none;
+}
+
+.progress__value {
+  stroke: red;
+  stroke-linecap: round;
+  stroke-dasharray: 247.68316480901927;
+}

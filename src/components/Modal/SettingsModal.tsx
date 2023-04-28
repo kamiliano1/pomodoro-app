@@ -24,8 +24,9 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
     arrow: "up" | "down",
     type: "pomodoro" | "shortBreak" | "longBreak"
   ) => {
-    // console.log(currentSettings);
-    // console.log(arrow, type);
+    if (currentSettings[type] >= 300 && arrow === "up") return;
+    if (currentSettings[type] <= 1 && arrow === "down") return;
+
     setCurrentSettings((prev) => {
       return {
         ...prev,
@@ -36,9 +37,22 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
       };
     });
   };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const currentValue =
+      parseFloat(e.target.value) <= 0
+        ? 1
+        : parseFloat(e.target.value) > 300
+        ? 300
+        : parseFloat(e.target.value);
+    setCurrentSettings((prev) => ({
+      ...prev,
+      [e.target.name]: currentValue,
+    }));
+  };
   return (
-    <div className="bg-white rounded-[15px]  min-w-[250px] w-[90%] max-w-[540px] fixed">
-      <div className="p-6 sm:p-10 flex items-center justify-between ">
+    <div className="bg-white rounded-[15px] min-w-[250px] w-[90%] max-w-[540px] fixed">
+      <div className="flex items-center justify-between p-6 sm:px-10 py-8">
         <h2 className="text-800-mobile sm:text-800-desktop text-161932">
           Settings
         </h2>
@@ -52,34 +66,53 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
         />
       </div>
       <Underline />
-      <div className="p-6">
-        <h3 className="sm:text-start">Time (Minutes)</h3>
-        <div className="sm:flex sm:justify-between">
+      <div className="p-6 sm:px-10 py-8">
+        <h3 className="sm:text-start ">Time (Minutes)</h3>
+        <div className="sm:flex sm:justify-between  sm:gap-x-5 ">
           <div className="text-1E213F flex sm:flex-col items-center justify-between pb-5 sm:grid sm:grid-cols-2 sm:grid-rows-2 w-full">
             <p className="text-500-mobile sm:text-500-desktop opacity-40 sm:col-span-2">
               pomodoro
             </p>
-            <p className="font-bold w-[3ch]">{currentSettings.pomodoro}</p>
+            <input
+              type="number"
+              onChange={handleChange}
+              name="pomodoro"
+              value={currentSettings.pomodoro}
+              className="font-bold w-[3ch] sm:ml-4"
+            />
+
             <Arrows timeName="pomodoro" updateTime={updateTime} />
           </div>
           <div className="text-1E213F flex sm:flex-col items-center justify-between pb-5 sm:grid sm:grid-cols-2 sm:grid-rows-2 w-full">
-            <p className="text-500-mobile sm:text-500-desktop opacity-40 sm:col-span-2">
+            <p className="text-500-mobile sm:text-500-desktop opacity-40 sm:col-span-2 ">
               short break
             </p>
-            <p className="font-bold w-[3ch]">{currentSettings.shortBreak}</p>
+            <input
+              type="number"
+              onChange={handleChange}
+              name="shortBreak"
+              value={currentSettings.shortBreak}
+              className="font-bold w-[3ch] sm:ml-4"
+            />
             <Arrows timeName="shortBreak" updateTime={updateTime} />
           </div>
           <div className="text-1E213F flex sm:flex-col items-center justify-between pb-5 sm:grid sm:grid-cols-2 sm:grid-rows-2 w-full">
             <p className="text-500-mobile sm:text-500-desktop opacity-40 sm:col-span-2">
               long break
             </p>
-            <p className="font-bold w-[3ch]">{currentSettings.longBreak}</p>
+            <input
+              type="number"
+              onChange={handleChange}
+              name="longBreak"
+              value={currentSettings.longBreak}
+              className="font-bold w-[3ch] sm:ml-4"
+            />
             <Arrows timeName="longBreak" updateTime={updateTime} />
           </div>
         </div>
-        <Underline />
+        <Underline cssClasses="my-6" />
         <div
-          className="px-6 py-3 grid grid-cols-[repeat(3,min-content)] gap-x-4 grid-rows-2 items-center justify-center place-items-center
+          className=" grid grid-cols-[repeat(3,min-content)] gap-x-4 grid-rows-2 items-center justify-center place-items-center
       sm:flex sm:justify-start
       "
         >
@@ -106,9 +139,9 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
             }
           />
         </div>
-        <Underline cssClasses="px-6" />
+        <Underline cssClasses="mt-6 mb-4" />
         <div
-          className="px-6 pt-3 pb-9 grid grid-cols-[repeat(3,min-content)] gap-x-4 grid-rows-2 items-center justify-center place-items-center
+          className="  pb-9 grid grid-cols-[repeat(3,min-content)] gap-x-4 grid-rows-2 items-center justify-center place-items-center
       sm:flex sm:justify-start"
         >
           <h3 className="col-span-3 sm:mr-auto">Color</h3>
@@ -145,7 +178,11 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
         </div>
       </div>
 
-      <ApplyButton applySettings={() => setSettingstate(currentSettings)} />
+      <ApplyButton
+        applySettings={() =>
+          setSettingstate({ ...currentSettings, isOpen: false })
+        }
+      />
     </div>
   );
 };
