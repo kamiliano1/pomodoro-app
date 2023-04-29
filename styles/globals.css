@@ -26,7 +26,7 @@ h3 {
   /* border-radius: 50%; */
   /* position: absolute; */
   background: conic-gradient(#f87070 270deg, #161932 270deg);
-  stroke-linecap: round;
+  /* stroke-linecap: round; */
   /* background: conic-gradient(
     #F87070 6deg,
     orange 6deg 18deg,
@@ -36,13 +36,7 @@ h3 {
     purple 200deg
   ); */
 }
-
-/* .demo {
-  flex-direction: column;
-  display: flex;
-  width: 120px;
-} */
-
+/* 
 .progress {
   transform: rotate(-90deg);
 }
@@ -56,4 +50,4 @@ h3 {
   stroke: red;
   stroke-linecap: round;
   stroke-dasharray: 247.68316480901927;
-}
+} */
