@@ -51,7 +51,7 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
     }));
   };
   return (
-    <div className="bg-white rounded-[15px] min-w-[250px] w-[90%] max-w-[540px] fixed">
+    <div className="bg-white rounded-[15px] min-w-[250px] w-[90%] max-w-[540px] fixed z-50 mx-auto">
       <div className="flex items-center justify-between p-6 sm:px-10 py-8">
         <h2 className="text-800-mobile sm:text-800-desktop text-161932">
           Settings

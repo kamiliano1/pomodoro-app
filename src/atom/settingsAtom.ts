@@ -7,6 +7,7 @@ export interface SettingsStateInterface {
   font: "Kumbh Sans" | "Roboto Slab" | "Space Mono";
   color: "red" | "cyan" | "violet";
   isOpen: boolean;
+  isPaused: boolean;
 }
 
 const defaultSettingsState: SettingsStateInterface = {
@@ -16,6 +17,7 @@ const defaultSettingsState: SettingsStateInterface = {
   font: "Kumbh Sans",
   color: "red",
   isOpen: false,
+  isPaused: true,
 };
 
 export const settingsState = atom<SettingsStateInterface>({

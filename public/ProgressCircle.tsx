@@ -13,23 +13,22 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
   progress,
   width,
 }) => {
-  const ref = useRef<null | HTMLDivElement>(null);
+  // const ref = useRef<null | HTMLDivElement>(null);
   //   const [width, setWidth] = useState(0);
-  const [percent, setPercent] = useState(40);
+  // const [percent, setPercent] = useState(40);
   const [windowWidth, setWindowWidth] = useState<number>(0);
   const [progressBarHeight, setProgressBarHeight] = useState<"8" | "11">("8");
   const circleBoxDimensions = width - 50;
   const circleCenterValue = circleBoxDimensions / 2;
   const circleRadius = circleCenterValue - 6;
-  const circle = width - 50;
-  const circle2 = circle / 2;
-  const circle3 = circle2 - 6;
-  const circumference = 2 * Math.PI * circle3;
+  const circumference = 2 * Math.PI * circleRadius;
   const styles: CSSProperties = {
     strokeDasharray: circumference,
     strokeLinecap: "round",
     strokeDashoffset: circumference * (1 - progress / 100),
   };
+  console.log(progress, width);
+
   useEffect(() => {
     function handleWindowResize() {
       setWindowWidth(window.innerWidth);
@@ -43,11 +42,11 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
   useEffect(() => {
     windowWidth > 675 ? setProgressBarHeight("11") : setProgressBarHeight("8");
   }, [windowWidth]);
-  //   useLayoutEffect(() => {
-  //     if (ref.current) setWidth(ref.current.offsetWidth);
-  //   }, [windowWidth]);
+  // useLayoutEffect(() => {
+  //   if (ref.current) setWidth(ref.current.offsetWidth);
+  // }, [windowWidth]);
   return (
-    <div className="aspect-square rounded-full p-2 -rotate-90 absolute">
+    <div className="aspect-square rounded-full p-2 -rotate-90 absolute progress__div bg-161932">
       <svg
         className=""
         width={circleBoxDimensions}
@@ -56,14 +55,44 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
       >
         <circle
           style={styles}
-          className={`fill-none stroke-F87070 ${color}`}
+          className={`fill-none progress__value ${color}`}
           cx={circleCenterValue}
           cy={circleCenterValue}
           r={circleRadius}
-          stroke-width={progressBarHeight}
+          strokeWidth={progressBarHeight}
         />
       </svg>
     </div>
   );
 };
 export default ProgressCircle;
+{
+  /* <svg class="progress" width="120" height="120" viewBox="0 0 120 120">
+<circle
+  class="progress__value"
+  cx="60"
+  cy="60"
+  r="54"
+  stroke-width="12"
+  stroke="url(#gradient)"
+/>
+</svg> */
+}
+
+// .progress {
+//   transform: rotate(-90deg);
+// }
+
+// .progress__meter,
+// .progress__value {
+//   fill: none;
+// }
+
+// .progress__meter {
+//   stroke: grey;
+// }
+
+// .progress__value {
+//   stroke: blue;
+//   stroke-linecap: round;
+// }
