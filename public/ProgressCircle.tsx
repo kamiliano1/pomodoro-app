@@ -7,27 +7,27 @@ import React, {
 } from "react";
 
 type ProgressCircleProps = { color: string; progress: number; width: number };
+import useSettings from "../src/components/hooks/useSettings";
 
 const ProgressCircle: React.FC<ProgressCircleProps> = ({
   color,
   progress,
   width,
 }) => {
-  // const ref = useRef<null | HTMLDivElement>(null);
-  //   const [width, setWidth] = useState(0);
-  // const [percent, setPercent] = useState(40);
   const [windowWidth, setWindowWidth] = useState<number>(0);
   const [progressBarHeight, setProgressBarHeight] = useState<"8" | "11">("8");
   const circleBoxDimensions = width - 50;
   const circleCenterValue = circleBoxDimensions / 2;
   const circleRadius = circleCenterValue - 6;
   const circumference = 2 * Math.PI * circleRadius;
+  const { activeSettings } = useSettings();
   const styles: CSSProperties = {
     strokeDasharray: circumference,
     strokeLinecap: "round",
     strokeDashoffset: circumference * (1 - progress / 100),
+    stroke: `#${activeSettings.color}`,
+    fill: "none",
   };
-  // console.log(progress, width);
 
   useEffect(() => {
     function handleWindowResize() {
@@ -42,11 +42,9 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
   useEffect(() => {
     windowWidth > 675 ? setProgressBarHeight("11") : setProgressBarHeight("8");
   }, [windowWidth]);
-  // useLayoutEffect(() => {
-  //   if (ref.current) setWidth(ref.current.offsetWidth);
-  // }, [windowWidth]);
+
   return (
-    <div className="aspect-square rounded-full p-2 -rotate-90 absolute progress__div bg-161932">
+    <div className="aspect-square rounded-full p-2  absolute progress__div">
       <svg
         className=""
         width={circleBoxDimensions}
@@ -55,7 +53,6 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
       >
         <circle
           style={styles}
-          className={`fill-none progress__value ${color}`}
           cx={circleCenterValue}
           cy={circleCenterValue}
           r={circleRadius}
@@ -66,33 +63,3 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
   );
 };
 export default ProgressCircle;
-{
-  /* <svg class="progress" width="120" height="120" viewBox="0 0 120 120">
-<circle
-  class="progress__value"
-  cx="60"
-  cy="60"
-  r="54"
-  stroke-width="12"
-  stroke="url(#gradient)"
-/>
-</svg> */
-}
-
-// .progress {
-//   transform: rotate(-90deg);
-// }
-
-// .progress__meter,
-// .progress__value {
-//   fill: none;
-// }
-
-// .progress__meter {
-//   stroke: grey;
-// }
-
-// .progress__value {
-//   stroke: blue;
-//   stroke-linecap: round;
-// }

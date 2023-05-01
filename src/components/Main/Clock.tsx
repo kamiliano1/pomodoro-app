@@ -6,9 +6,11 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { settingsState } from "@/src/atom/settingsAtom";
 import { BreakTypeInterface, breakStates } from "@/src/atom/breakTypeAtom";
+import useSettings from "../hooks/useSettings";
+
 type ClockProps = {};
 
 type clockType = {
@@ -17,8 +19,9 @@ type clockType = {
 };
 
 const Clock: React.FC<ClockProps> = () => {
+  const { activeSettings } = useSettings();
   const [settingState, setSettingstate] = useRecoilState(settingsState);
-  const [breakState, setBreakState] = useRecoilState(breakStates);
+  const breakState = useRecoilValue(breakStates);
   const [currentActiveBreak, setCurrentActiveBreak] =
     useState<BreakTypeInterface>(breakState[0]);
   const ref = useRef<null | HTMLDivElement>(null);
@@ -35,11 +38,9 @@ const Clock: React.FC<ClockProps> = () => {
 
   useEffect(() => {
     setCurrentActiveBreak(breakState.filter((item) => item.isActive)[0]);
-    // console.log(currentActiveBreak, "akt");
     setTimeClock({ minutes: currentActiveBreak.time, seconds: 0 });
     setInitialTime(currentActiveBreak.time * 60);
-    // console.log(currentActiveBreak.time, "czas");
-  }, [breakState]);
+  }, [breakState, currentActiveBreak.time]);
   useEffect(() => {
     function handleWindowResize() {
       setWindowWidth(window.innerWidth);
@@ -55,40 +56,36 @@ const Clock: React.FC<ClockProps> = () => {
     if (ref.current) setWidth(ref.current.offsetWidth);
   }, [windowWidth]);
 
+  const startClock = () => {
+    setSettingstate((prev) => ({ ...prev, isPaused: !prev.isPaused }));
+    if (timeClock.minutes === 0 && timeClock.seconds === 0)
+      setTimeClock({ minutes: currentActiveBreak.time, seconds: 0 });
+  };
   useEffect(() => {
     const timer = setTimeout(() => {
       if (
         settingState.isPaused ||
         (timeClock.minutes === 0 && timeClock.seconds === 0)
-      )
+      ) {
+        setSettingstate((prev) => ({ ...prev, isPaused: true }));
         return;
+      }
       timeClock.seconds === 0
         ? setTimeClock((prev) => ({ minutes: prev.minutes - 1, seconds: 59 }))
         : setTimeClock((prev) => ({ ...prev, seconds: prev.seconds - 1 }));
     }, 1);
 
     return () => clearTimeout(timer);
-  }, [settingState.isPaused, timeClock.minutes, timeClock.seconds]);
+  }, [
+    setSettingstate,
+    settingState.isPaused,
+    timeClock.minutes,
+    timeClock.seconds,
+  ]);
 
   useEffect(() => {
     setPercent(100 - ((timeClock.minutes * 60) / initialTime) * 100);
   }, [initialTime, timeClock.minutes]);
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setGameStates((prev) => ({
-  //       ...prev,
-  //       yellowPlayerRemainingTime: prev.yellowPlayerRemainingTime - 1,
-  //     }));
-  //   }, 1000);
-  //   if (gameStates.yellowPlayerRemainingTime <= 0 || gameStates.isPaused)
-  //     clearTimeout(timer);
-  //   if (gameStates.yellowPlayerRemainingTime === 0)
-  //     return () => clearTimeout(timer);
-  // }, []);
-
-  // const handleProcent = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setPercent(e.target.value);
-  // };
   return (
     <div>
       <div
@@ -105,41 +102,15 @@ const Clock: React.FC<ClockProps> = () => {
         </h1>
 
         <button
-          className="text-700-mobile uppercase sm:text-700-desktop text-D7E0FF z-20"
-          onClick={() =>
-            setSettingstate((prev) => ({ ...prev, isPaused: !prev.isPaused }))
-          }
+          className={`text-700-mobile uppercase sm:text-700-desktop text-D7E0FF z-20 ${activeSettings.hover}Hover
+           `}
+          onClick={startClock}
         >
           {settingState.isPaused ? "Start" : "Pause"}
         </button>
-
-        {/* <button
-            className="text-700-mobile uppercase sm:text-700-desktop text-D7E0FF z-20"
-            onClick={() =>
-              setSettingstate((prev) => ({ ...prev, isPaused: true }))
-            }
-          >
-            Pause
-          </button> */}
       </div>
       <p className="text-F87070">{width}</p>
-      {/* <input type="range" value={percent} onChange={handleProcent} /> */}
     </div>
   );
 };
 export default Clock;
-
-// .progress {
-//     transform: rotate(-90deg);
-//   }
-
-//   .progress__meter,
-//   .progress__value {
-//     fill: none;
-//   }
-
-//   .progress__value {
-//     stroke: red;
-//     stroke-linecap: round;
-//     stroke-dasharray: 247.68316480901927;
-//   }
