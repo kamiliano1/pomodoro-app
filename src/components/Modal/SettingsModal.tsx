@@ -9,6 +9,7 @@ import SelectionButton from "./SelectionFontButton";
 import SelectionFontButton from "./SelectionFontButton";
 import SelectionColorButton from "./SelectionColorButton";
 import ApplyButton from "./ApplyButton";
+import { breakStates, BreakTypeInterface } from "@/src/atom/breakTypeAtom";
 
 import { useRecoilState } from "recoil";
 import { settingsState, SettingsStateInterface } from "@/src/atom/settingsAtom";
@@ -17,25 +18,54 @@ type SettingsModalProps = {};
 
 const SettingsModal: React.FC<SettingsModalProps> = () => {
   const [settingState, setSettingstate] = useRecoilState(settingsState);
+  const [breakState, setBreakState] = useRecoilState(breakStates);
   const [currentSettings, setCurrentSettings] =
     useState<SettingsStateInterface>(settingState);
+  const [breakSettings, setBreakSettings] =
+    useState<BreakTypeInterface[]>(breakState);
+  // const [currentActiveBreak, setCurrentActiveBreak] = useState<
+  //   BreakTypeInterface | undefined
+  // >(undefined);
   // (arrow:"up" | "down", type: "pomodoro" | "short break" | "long break")
   const updateTime = (
     arrow: "up" | "down",
-    type: "pomodoro" | "shortBreak" | "longBreak"
+    // type: "pomodoro" | "shortBreak" | "longBreak"
+    type: "pomodoro" | "short break" | "long break"
   ) => {
-    if (currentSettings[type] >= 300 && arrow === "up") return;
-    if (currentSettings[type] <= 1 && arrow === "down") return;
+    const activeBreak: BreakTypeInterface | undefined = breakSettings.find(
+      (item) => item.name === type
+    );
+    // setCurrentActiveBreak(breakState.find((item) => item.isActive));
+    console.log(activeBreak);
 
-    setCurrentSettings((prev) => {
-      return {
-        ...prev,
-        [type]:
-          arrow === "up"
-            ? currentSettings[type] + 1
-            : currentSettings[type] - 1,
-      };
-    });
+    // if (currentSettings[type] >= 300 && arrow === "up") return;
+    // if (currentSettings[type] <= 1 && arrow === "down") return;
+    if (activeBreak) {
+      if (activeBreak.time >= 300 && arrow === "up") return;
+      if (activeBreak.time <= 1 && arrow === "down") return;
+    }
+
+    setBreakSettings((prev) =>
+      prev.map((item) => {
+        if (arrow === "up") {
+          return item.name === type ? { ...item, time: item.time + 1 } : item;
+        }
+        return item.name === type ? { ...item, time: item.time - 1 } : item;
+      })
+    );
+    // setCurrentSettings((prev) => {
+    //   return {
+    //     ...prev,
+    //     [type]:
+    //       arrow === "up"
+    //         ? currentSettings[type] + 1
+    //         : currentSettings[type] - 1,
+    //   };
+    // });
+  };
+  const applySettings = () => {
+    setSettingstate({ ...currentSettings, isOpen: false });
+    setBreakState(breakSettings);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +107,10 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
               type="number"
               onChange={handleChange}
               name="pomodoro"
-              value={currentSettings.pomodoro}
+              // value={currentSettings.pomodoro}
+              value={
+                breakSettings.find((item) => item.name === "pomodoro")?.time
+              }
               className="font-bold w-[3ch] sm:ml-4"
             />
 
@@ -90,11 +123,13 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
             <input
               type="number"
               onChange={handleChange}
-              name="shortBreak"
-              value={currentSettings.shortBreak}
+              name="short break"
+              value={
+                breakSettings.find((item) => item.name === "short break")?.time
+              }
               className="font-bold w-[3ch] sm:ml-4"
             />
-            <Arrows timeName="shortBreak" updateTime={updateTime} />
+            <Arrows timeName="short break" updateTime={updateTime} />
           </div>
           <div className="text-1E213F flex sm:flex-col items-center justify-between pb-5 sm:grid sm:grid-cols-2 sm:grid-rows-2 w-full">
             <p className="text-500-mobile sm:text-500-desktop opacity-40 sm:col-span-2">
@@ -103,11 +138,13 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
             <input
               type="number"
               onChange={handleChange}
-              name="longBreak"
-              value={currentSettings.longBreak}
+              name="long break"
+              value={
+                breakSettings.find((item) => item.name === "long break")?.time
+              }
               className="font-bold w-[3ch] sm:ml-4"
             />
-            <Arrows timeName="longBreak" updateTime={updateTime} />
+            <Arrows timeName="long break" updateTime={updateTime} />
           </div>
         </div>
         <Underline cssClasses="my-6" />
@@ -178,11 +215,7 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
         </div>
       </div>
 
-      <ApplyButton
-        applySettings={() =>
-          setSettingstate({ ...currentSettings, isOpen: false })
-        }
-      />
+      <ApplyButton applySettings={applySettings} />
     </div>
   );
 };

@@ -27,7 +27,7 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
     strokeLinecap: "round",
     strokeDashoffset: circumference * (1 - progress / 100),
   };
-  console.log(progress, width);
+  // console.log(progress, width);
 
   useEffect(() => {
     function handleWindowResize() {

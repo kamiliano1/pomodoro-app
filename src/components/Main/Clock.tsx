@@ -7,7 +7,8 @@ import React, {
   useState,
 } from "react";
 import { useRecoilState } from "recoil";
-import { settingsState, SettingsStateInterface } from "@/src/atom/settingsAtom";
+import { settingsState } from "@/src/atom/settingsAtom";
+import { BreakTypeInterface, breakStates } from "@/src/atom/breakTypeAtom";
 type ClockProps = {};
 
 type clockType = {
@@ -17,6 +18,9 @@ type clockType = {
 
 const Clock: React.FC<ClockProps> = () => {
   const [settingState, setSettingstate] = useRecoilState(settingsState);
+  const [breakState, setBreakState] = useRecoilState(breakStates);
+  const [currentActiveBreak, setCurrentActiveBreak] =
+    useState<BreakTypeInterface>(breakState[0]);
   const ref = useRef<null | HTMLDivElement>(null);
   const [width, setWidth] = useState(300);
   const [percent, setPercent] = useState(40);
@@ -28,6 +32,14 @@ const Clock: React.FC<ClockProps> = () => {
   const [initialTime, setInitialTime] = useState<number>(
     timeClock.minutes * 60
   );
+
+  useEffect(() => {
+    setCurrentActiveBreak(breakState.filter((item) => item.isActive)[0]);
+    // console.log(currentActiveBreak, "akt");
+    setTimeClock({ minutes: currentActiveBreak.time, seconds: 0 });
+    setInitialTime(currentActiveBreak.time * 60);
+    // console.log(currentActiveBreak.time, "czas");
+  }, [breakState]);
   useEffect(() => {
     function handleWindowResize() {
       setWindowWidth(window.innerWidth);

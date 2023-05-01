@@ -4,10 +4,10 @@ import upArrowIcon from "../../../public/icon-arrow-up.svg";
 import downArrowIcon from "../../../public/icon-arrow-down.svg";
 import { ArrowIcon } from "@/public/ArrowIcon";
 type ArrowsProps = {
-  timeName: "pomodoro" | "shortBreak" | "longBreak";
+  timeName: "pomodoro" | "short break" | "long break";
   updateTime: (
     arrow: "up" | "down",
-    type: "pomodoro" | "shortBreak" | "longBreak"
+    type: "pomodoro" | "short break" | "long break"
   ) => void;
 };
 
