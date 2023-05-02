@@ -6,14 +6,10 @@ import React, {
   useState,
 } from "react";
 
-type ProgressCircleProps = { color: string; progress: number; width: number };
+type ProgressCircleProps = { progress: number; width: number };
 import useSettings from "../src/components/hooks/useSettings";
 
-const ProgressCircle: React.FC<ProgressCircleProps> = ({
-  color,
-  progress,
-  width,
-}) => {
+const ProgressCircle: React.FC<ProgressCircleProps> = ({ progress, width }) => {
   const [windowWidth, setWindowWidth] = useState<number>(0);
   const [progressBarHeight, setProgressBarHeight] = useState<"8" | "11">("8");
   const circleBoxDimensions = width - 50;
@@ -44,7 +40,7 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
   }, [windowWidth]);
 
   return (
-    <div className="aspect-square rounded-full p-2  absolute progress__div">
+    <div className="aspect-square rounded-full p-2 absolute progress__div bg-161932">
       <svg
         className=""
         width={circleBoxDimensions}

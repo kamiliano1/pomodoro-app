@@ -1,16 +1,17 @@
 import { breakStates } from "@/src/atom/breakTypeAtom";
+import { settingsState } from "@/src/atom/settingsAtom";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import useSettings from "../hooks/useSettings";
+import { BreakType } from "@/src/atom/settingsAtom";
 type TypeBreakButtonProps = {
-  name: "pomodoro" | "short break" | "long break";
+  name: BreakType;
 };
 
 const TypeBreakButton: React.FC<TypeBreakButtonProps> = ({ name }) => {
   const [breakState, setBreakState] = useRecoilState(breakStates);
-  const [currentActive, setCurrentActive] = useState<
-    "pomodoro" | "short break" | "long break"
-  >("pomodoro");
+  const [settingState, setSettingState] = useRecoilState(settingsState);
+  const [currentActive, setCurrentActive] = useState<BreakType>("pomodoro");
   const { activeSettings } = useSettings();
   useEffect(() => {
     setBreakState((prev) => {
@@ -19,7 +20,7 @@ const TypeBreakButton: React.FC<TypeBreakButtonProps> = ({ name }) => {
     });
   }, [breakState, setBreakState]);
 
-  const updateBreakType = (name: "pomodoro" | "short break" | "long break") => {
+  const updateBreakType = (name: BreakType) => {
     setBreakState((prev) =>
       prev.map((item) =>
         item.name === name
@@ -27,6 +28,7 @@ const TypeBreakButton: React.FC<TypeBreakButtonProps> = ({ name }) => {
           : { ...item, isActive: false }
       )
     );
+    setSettingState((prev) => ({ ...prev, isPaused: true }));
   };
   const backgroundClasses = `bg-${activeSettings.color} text-1E213F`;
   return (

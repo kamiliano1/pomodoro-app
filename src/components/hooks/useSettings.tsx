@@ -1,18 +1,17 @@
 import { useRecoilValue } from "recoil";
 import { settingsState } from "../../atom/settingsAtom";
 import { useEffect, useState } from "react";
-
+import { FontType, ColorType } from "../../atom/settingsAtom";
 type activeSettingsType = {
   color: "F87070" | "70F3F8" | "D881F8";
-  font: "Kumbh Sans" | "Roboto Slab" | "Space Mono";
-  hover: "red" | "cyan" | "violet";
+  font: FontType;
+  hover: ColorType;
 };
-// F87070 70F3F8 D881F8
 const useSettings = () => {
   const settingState = useRecoilValue(settingsState);
   const [activeSettings, setActiveSettings] = useState<activeSettingsType>({
     color: "F87070",
-    font: "Kumbh Sans",
+    font: "font-kumbhSans",
     hover: "red",
   });
 

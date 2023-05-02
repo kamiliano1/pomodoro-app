@@ -9,8 +9,12 @@ const ApplyButton: React.FC<ApplyButtonProps> = ({ applySettings }) => {
     <div className="w-full flex justify-center">
       <button
         onClick={applySettings}
-        className={`absolute mx-auto font-bold bg-${activeSettings.color} rounded-[26.5px]
-         text-white px-12 py-[.9375rem] bottom-[-27px] `}
+        className={`absolute mx-auto font-bold bg-${
+          activeSettings.color
+        } rounded-[26.5px]
+       ${
+         activeSettings.color === "70F3F8" ? "text-161932" : "text-white"
+       }  px-12 py-[.9375rem] bottom-[-27px] `}
       >
         Apply
       </button>

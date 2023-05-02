@@ -1,7 +1,7 @@
 import { atom } from "recoil";
-
+import { BreakType } from "./settingsAtom";
 export type BreakTypeInterface = {
-  name: "pomodoro" | "short break" | "long break";
+  name: BreakType;
   isActive: boolean;
   time: number;
 };

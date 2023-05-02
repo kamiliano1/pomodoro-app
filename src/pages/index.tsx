@@ -1,24 +1,18 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import SettingsModal from "../components/Modal/SettingsModal";
 import Head from "next/head";
+import Image from "next/image";
 import webLogo from "../../public/logo.svg";
-import settingIcon from "../../public/icon-settings.svg";
-
+import SettingsModal from "../components/Modal/SettingsModal";
+import { settingsState } from "@/src/atom/settingsAtom";
 import { useRecoilState } from "recoil";
-import { settingsState, SettingsStateInterface } from "@/src/atom/settingsAtom";
-import TypeBreakButton from "../components/Main/TypeBreakButton";
 import Clock from "../components/Main/Clock";
+import TypeBreakButton from "../components/Main/TypeBreakButton";
 
-import { ArrowIcon } from "@/public/ArrowIcon";
 import { SettingIcon } from "@/public/SettingIcon";
-import { useEffect } from "react";
-const inter = Inter({ subsets: ["latin"] });
+import TypeBreak from "../components/Main/TypeBreak";
 
 export default function Home() {
   const [settingState, setSettingstate] = useRecoilState(settingsState);
   const isModalOpen = settingState.isOpen;
-
   return (
     <>
       <Head>
@@ -26,28 +20,27 @@ export default function Home() {
         <link rel="shortcut icon" href="/favicon-32x32.png" />
       </Head>
       <main
-        className={`min-h-[100vh]  py-8 ${settingState.font}  flex flex-col items-center`}
+        className={`min-h-[100vh] ${settingState.font} flex flex-col items-center`}
       >
-        <Image src={webLogo} alt="web logo" className="mx-auto" />
+        <Image src={webLogo} alt="web logo" className="mx-auto py-8" />
         {isModalOpen && <SettingsModal />}
+        <TypeBreak />
 
-        <div className="flex p-2 bg-161932 rounded-[31.5px] my-12 ">
-          <TypeBreakButton name="pomodoro" />
-          <TypeBreakButton name="short break" />
-          <TypeBreakButton name="long break" />
+        <div className="self-stretch px-10">
+          <Clock />
         </div>
-        <Clock />
-
-        <SettingIcon
-          onClick={() =>
-            setSettingstate((prev) => ({
-              ...prev,
-              isOpen: true,
-              isPaused: true,
-            }))
-          }
-          className="cursor-pointer text-3xl text-D7E0FF opacity-50 hover:opacity-100 mt-20"
-        />
+        {!settingState.isOpen && (
+          <SettingIcon
+            onClick={() =>
+              setSettingstate((prev) => ({
+                ...prev,
+                isOpen: true,
+                isPaused: true,
+              }))
+            }
+            className="cursor-pointer text-3xl text-D7E0FF opacity-50 hover:opacity-100 mt-20"
+          />
+        )}
       </main>
     </>
   );

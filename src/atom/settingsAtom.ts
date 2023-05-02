@@ -1,60 +1,22 @@
 import { atom } from "recoil";
 
+export type BreakType = "pomodoro" | "short break" | "long break";
+export type FontType = "font-kumbhSans" | "font-robotoSlab" | "font-spaceMono";
+export type ColorType = "red" | "cyan" | "violet";
 export interface SettingsStateInterface {
-  pomodoro: number;
-  shortBreak: number;
-  longBreak: number;
-  currentTypeActive: "pomodoro" | "short break" | "long break";
-  // font: "Kumbh Sans" | "Roboto Slab" | "Space Mono";
-  font: "font-kumbhSans" | "font-robotoSlab" | "font-spaceMono";
-  color: "red" | "cyan" | "violet";
+  currentTypeActive: BreakType;
+  font: FontType;
+  color: ColorType;
   isOpen: boolean;
   isPaused: boolean;
-  break: [
-    {
-      name: "pomodoro";
-      isActive: boolean;
-      time: number;
-    },
-    {
-      name: "short break";
-      isActive: boolean;
-      time: number;
-    },
-    {
-      name: "long break";
-      isActive: boolean;
-      time: number;
-    }
-  ];
 }
 
 const defaultSettingsState: SettingsStateInterface = {
-  pomodoro: 25,
-  shortBreak: 5,
-  longBreak: 15,
   currentTypeActive: "pomodoro",
   font: "font-kumbhSans",
   color: "red",
   isOpen: false,
   isPaused: true,
-  break: [
-    {
-      name: "pomodoro",
-      isActive: true,
-      time: 25,
-    },
-    {
-      name: "short break",
-      isActive: false,
-      time: 5,
-    },
-    {
-      name: "long break",
-      isActive: false,
-      time: 15,
-    },
-  ],
 };
 
 export const settingsState = atom<SettingsStateInterface>({

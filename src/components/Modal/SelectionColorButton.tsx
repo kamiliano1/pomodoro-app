@@ -1,9 +1,10 @@
 import { CheckIcon } from "@/public/CheckIcon";
 import React, { useEffect, useState } from "react";
+import { ColorType } from "@/src/atom/settingsAtom";
 type SelectionColorButtonProps = {
-  color: "red" | "cyan" | "violet";
-  activeColor: "red" | "cyan" | "violet";
-  switchColor: (color: "red" | "cyan" | "violet") => void;
+  color: ColorType;
+  activeColor: ColorType;
+  switchColor: (color: ColorType) => void;
 };
 
 const SelectionColorButton: React.FC<SelectionColorButtonProps> = ({

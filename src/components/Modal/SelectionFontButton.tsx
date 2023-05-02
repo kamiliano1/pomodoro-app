@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-
+import { FontType } from "@/src/atom/settingsAtom";
 type SelectionFontButtonProps = {
-  fontName: "font-kumbhSans" | "font-robotoSlab" | "font-spaceMono";
-  activeFont: "font-kumbhSans" | "font-robotoSlab" | "font-spaceMono";
-  switchFont: (
-    fontName: "font-kumbhSans" | "font-robotoSlab" | "font-spaceMono"
-  ) => void;
+  fontName: FontType;
+  activeFont: FontType;
+  switchFont: (fontName: FontType) => void;
 };
 
 const SelectionFontButton: React.FC<SelectionFontButtonProps> = ({

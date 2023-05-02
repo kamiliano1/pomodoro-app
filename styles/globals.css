@@ -7,7 +7,7 @@
 }
 
 h3 {
-  @apply text-600-mobile sm:text-600-desktop text-center text-161932 pb-4 sm:pb-0 uppercase;
+  @apply text-600-mobile sm:text-600-desktop text-center text-161932  sm:pb-0 uppercase;
 }
 
 .modalBackground {

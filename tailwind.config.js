@@ -23,36 +23,7 @@ module.exports = {
         kumbhSans: [`var(--font-kumbh-sans)`],
         robotoSlab: ["var(--font-roboto-slab)"],
         spaceMono: ["var(--font-space-mono)"],
-        sans: ["var(--font-space-Grotesk)"],
       },
-      // color: {
-      //   F87070: "hsl(0, 91%, 71%)",
-      //   "70F3F8": "hsl(182, 91%, 71%)",
-      //   D881F8: "hsl(284, 89%, 74%)",
-      //   D7E0FF: "hsl(227, 100%, 92%)",
-      //   "1E213F": "hsl(235, 35%, 18%)",
-      //   FFFFFF: "hsl(0, 0%, 100%)",
-      //   EFF1FA: "hsl(229, 52%, 96%)",
-      //   161932: "hsl(234, 39%, 14%)",
-      // },
-
-      // const kumbhSans = Kumbh_Sans({
-      //   subsets: ["latin"],
-      //   weight: ["500", "700"],
-      //   variable: "--font-kumbh-sans",
-      // });
-
-      // const robotoSlab = Roboto_Slab({
-      //   subsets: ["latin"],
-      //   weight: ["500", "700"],
-      //   variable: "--font-roboto-slab",
-      // });
-
-      // const spaceMono = Space_Mono({
-      //   subsets: ["latin"],
-      //   weight: ["400", "700"],
-      //   variable: "--font-space-mono",
-      // });
 
       fontSize: {
         "900-desktop": [
@@ -63,12 +34,60 @@ module.exports = {
             fontWeight: "700",
           },
         ],
+        "900-desktop-kumbh-sans": [
+          "6.25rem",
+          {
+            lineHeight: "7.5rem",
+            letterSpacing: "-0.3125rem",
+            fontWeight: "700",
+          },
+        ],
+        "900-desktop-roboto-slab": [
+          "6.25rem",
+          {
+            lineHeight: "8.1875rem",
+            fontWeight: "700",
+          },
+        ],
+        "900-desktop-space-mono": [
+          "6.25rem",
+          {
+            lineHeight: "9.25rem",
+            letterSpacing: "-0.625rem",
+            fontWeight: "400",
+          },
+        ],
         "900-mobile": [
           "5rem",
           {
             lineHeight: "6.1875rem",
             letterSpacing: "-0.25rem",
+            // letterSpacing: "-10px",
+            fontWeight: "400",
+          },
+        ],
+        "900-mobile-kumbh-sans": [
+          "5rem",
+          {
+            lineHeight: "6.1875rem",
+            letterSpacing: "-0.25rem",
+            // letterSpacing: "-10px",
             fontWeight: "700",
+          },
+        ],
+        "900-mobile-roboto-slab": [
+          "5rem",
+          {
+            lineHeight: "6.5625rem",
+            fontWeight: "700",
+          },
+        ],
+        "900-mobile-space-mono": [
+          "5rem",
+          {
+            lineHeight: "7.375rem",
+            letterSpacing: "-0.625rem",
+            fontWeight: "400",
           },
         ],
         "800-desktop": [

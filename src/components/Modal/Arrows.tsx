@@ -1,14 +1,9 @@
-import React, { SVGProps } from "react";
-import Image from "next/image";
-import upArrowIcon from "../../../public/icon-arrow-up.svg";
-import downArrowIcon from "../../../public/icon-arrow-down.svg";
 import { ArrowIcon } from "@/public/ArrowIcon";
+import { BreakType } from "@/src/atom/settingsAtom";
+import React from "react";
 type ArrowsProps = {
-  timeName: "pomodoro" | "short break" | "long break";
-  updateTime: (
-    arrow: "up" | "down",
-    type: "pomodoro" | "short break" | "long break"
-  ) => void;
+  timeName: BreakType;
+  updateTime: (arrow: "up" | "down", type: BreakType) => void;
 };
 
 const Arrows: React.FC<ArrowsProps> = ({ timeName, updateTime }) => {
