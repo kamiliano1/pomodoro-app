@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 type SelectionFontButtonProps = {
-  fontName: "Kumbh Sans" | "Roboto Slab" | "Space Mono";
-  activeFont: "Kumbh Sans" | "Roboto Slab" | "Space Mono";
-  switchFont: (fontName: "Kumbh Sans" | "Roboto Slab" | "Space Mono") => void;
+  fontName: "font-kumbhSans" | "font-robotoSlab" | "font-spaceMono";
+  activeFont: "font-kumbhSans" | "font-robotoSlab" | "font-spaceMono";
+  switchFont: (
+    fontName: "font-kumbhSans" | "font-robotoSlab" | "font-spaceMono"
+  ) => void;
 };
 
 const SelectionFontButton: React.FC<SelectionFontButtonProps> = ({
@@ -19,9 +21,11 @@ const SelectionFontButton: React.FC<SelectionFontButtonProps> = ({
     <button
       onClick={() => switchFont(fontName)}
       className={`w-[40px] aspect-square ${
-        isActiveFont ? "bg-161932 text-white opacity-100" : "opacity-[0.73]"
+        isActiveFont
+          ? "bg-161932 text-white opacity-100 font-bold"
+          : "opacity-[0.73]"
       } 
-      rounded-full flex font-bold justify-center items-center `}
+      rounded-full flex  justify-center items-center `}
     >
       Aa
     </button>

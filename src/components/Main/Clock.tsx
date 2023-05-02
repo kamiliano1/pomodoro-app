@@ -102,14 +102,13 @@ const Clock: React.FC<ClockProps> = () => {
         </h1>
 
         <button
-          className={`text-700-mobile uppercase sm:text-700-desktop text-D7E0FF z-20 ${activeSettings.hover}Hover
+          className={`text-700-mobile uppercase sm:text-700-desktop  text-D7E0FF z-20 ${activeSettings.hover}Hover
            `}
           onClick={startClock}
         >
           {settingState.isPaused ? "Start" : "Pause"}
         </button>
       </div>
-      <p className="text-F87070">{width}</p>
     </div>
   );
 };

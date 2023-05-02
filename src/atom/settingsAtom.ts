@@ -5,7 +5,8 @@ export interface SettingsStateInterface {
   shortBreak: number;
   longBreak: number;
   currentTypeActive: "pomodoro" | "short break" | "long break";
-  font: "Kumbh Sans" | "Roboto Slab" | "Space Mono";
+  // font: "Kumbh Sans" | "Roboto Slab" | "Space Mono";
+  font: "font-kumbhSans" | "font-robotoSlab" | "font-spaceMono";
   color: "red" | "cyan" | "violet";
   isOpen: boolean;
   isPaused: boolean;
@@ -33,7 +34,7 @@ const defaultSettingsState: SettingsStateInterface = {
   shortBreak: 5,
   longBreak: 15,
   currentTypeActive: "pomodoro",
-  font: "Kumbh Sans",
+  font: "font-kumbhSans",
   color: "red",
   isOpen: false,
   isPaused: true,

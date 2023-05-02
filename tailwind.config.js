@@ -19,6 +19,12 @@ module.exports = {
       white: "hsl(0, 100%, 100%)",
     },
     extend: {
+      fontFamily: {
+        kumbhSans: [`var(--font-kumbh-sans)`],
+        robotoSlab: ["var(--font-roboto-slab)"],
+        spaceMono: ["var(--font-space-mono)"],
+        sans: ["var(--font-space-Grotesk)"],
+      },
       // color: {
       //   F87070: "hsl(0, 91%, 71%)",
       //   "70F3F8": "hsl(182, 91%, 71%)",
@@ -29,6 +35,25 @@ module.exports = {
       //   EFF1FA: "hsl(229, 52%, 96%)",
       //   161932: "hsl(234, 39%, 14%)",
       // },
+
+      // const kumbhSans = Kumbh_Sans({
+      //   subsets: ["latin"],
+      //   weight: ["500", "700"],
+      //   variable: "--font-kumbh-sans",
+      // });
+
+      // const robotoSlab = Roboto_Slab({
+      //   subsets: ["latin"],
+      //   weight: ["500", "700"],
+      //   variable: "--font-roboto-slab",
+      // });
+
+      // const spaceMono = Space_Mono({
+      //   subsets: ["latin"],
+      //   weight: ["400", "700"],
+      //   variable: "--font-space-mono",
+      // });
+
       fontSize: {
         "900-desktop": [
           "6.25rem",

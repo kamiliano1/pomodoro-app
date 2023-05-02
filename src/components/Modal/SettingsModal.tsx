@@ -23,29 +23,21 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
     useState<SettingsStateInterface>(settingState);
   const [breakSettings, setBreakSettings] =
     useState<BreakTypeInterface[]>(breakState);
-  // const [currentActiveBreak, setCurrentActiveBreak] = useState<
-  //   BreakTypeInterface | undefined
-  // >(undefined);
-  // (arrow:"up" | "down", type: "pomodoro" | "short break" | "long break")
+
   const updateTime = (
     arrow: "up" | "down",
-    // type: "pomodoro" | "shortBreak" | "longBreak"
     type: "pomodoro" | "short break" | "long break"
   ) => {
     const activeBreak: BreakTypeInterface | undefined = breakSettings.find(
       (item) => item.name === type
     );
-    // setCurrentActiveBreak(breakState.find((item) => item.isActive));
-    console.log(activeBreak);
 
-    // if (currentSettings[type] >= 300 && arrow === "up") return;
-    // if (currentSettings[type] <= 1 && arrow === "down") return;
     if (activeBreak) {
       if (activeBreak.time >= 300 && arrow === "up") return;
       if (activeBreak.time <= 1 && arrow === "down") return;
     }
 
-    setBreakSettings((prev) =>
+    setBreakState((prev) =>
       prev.map((item) => {
         if (arrow === "up") {
           return item.name === type ? { ...item, time: item.time + 1 } : item;
@@ -53,17 +45,21 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
         return item.name === type ? { ...item, time: item.time - 1 } : item;
       })
     );
-    // setCurrentSettings((prev) => {
-    //   return {
-    //     ...prev,
-    //     [type]:
-    //       arrow === "up"
-    //         ? currentSettings[type] + 1
-    //         : currentSettings[type] - 1,
-    //   };
-    // });
+    // setBreakSettings((prev) =>
+    //   prev.map((item) => {
+    //     if (arrow === "up") {
+    //       return item.name === type ? { ...item, time: item.time + 1 } : item;
+    //     }
+    //     return item.name === type ? { ...item, time: item.time - 1 } : item;
+    //   })
+    // );
   };
   const applySettings = () => {
+    setSettingstate((prev) => ({ ...prev, isOpen: false }));
+    // setBreakState(breakSettings);
+  };
+
+  const closeModal = () => {
     setSettingstate({ ...currentSettings, isOpen: false });
     setBreakState(breakSettings);
   };
@@ -75,13 +71,19 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
         : parseFloat(e.target.value) > 300
         ? 300
         : parseFloat(e.target.value);
-    setCurrentSettings((prev) => ({
+    setSettingstate((prev) => ({
       ...prev,
       [e.target.name]: currentValue,
     }));
+    // setCurrentSettings((prev) => ({
+    //   ...prev,
+    //   [e.target.name]: currentValue,
+    // }));
   };
   return (
-    <div className="bg-white rounded-[15px] min-w-[250px] w-[90%] max-w-[540px] fixed z-50 mx-auto">
+    <div
+      className={`bg-white rounded-[15px] min-w-[250px] w-[90%] max-w-[540px] fixed z-50 mx-auto ${currentSettings.font}`}
+    >
       <div className="flex items-center justify-between p-6 sm:px-10 py-8">
         <h2 className="text-800-mobile sm:text-800-desktop text-161932">
           Settings
@@ -89,10 +91,11 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
         <Image
           src={closeIcon}
           alt=""
-          className="inline"
-          onClick={() =>
-            setSettingstate((prev) => ({ ...prev, isOpen: false }))
-          }
+          className="inline cursor-pointer"
+          // onClick={() =>
+          //   setSettingstate((prev) => ({ ...prev, isOpen: false }))
+          // }
+          onClick={closeModal}
         />
       </div>
       <Underline />
@@ -107,10 +110,7 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
               type="number"
               onChange={handleChange}
               name="pomodoro"
-              // value={currentSettings.pomodoro}
-              value={
-                breakSettings.find((item) => item.name === "pomodoro")?.time
-              }
+              value={breakState.find((item) => item.name === "pomodoro")?.time}
               className="font-bold w-[3ch] sm:ml-4"
             />
 
@@ -125,7 +125,7 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
               onChange={handleChange}
               name="short break"
               value={
-                breakSettings.find((item) => item.name === "short break")?.time
+                breakState.find((item) => item.name === "short break")?.time
               }
               className="font-bold w-[3ch] sm:ml-4"
             />
@@ -140,7 +140,7 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
               onChange={handleChange}
               name="long break"
               value={
-                breakSettings.find((item) => item.name === "long break")?.time
+                breakState.find((item) => item.name === "long break")?.time
               }
               className="font-bold w-[3ch] sm:ml-4"
             />
@@ -155,24 +155,24 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
         >
           <h3 className="col-span-3 sm:mr-auto">Font</h3>
           <SelectionFontButton
-            fontName="Kumbh Sans"
-            activeFont={currentSettings.font}
+            fontName="font-kumbhSans"
+            activeFont={settingState.font}
             switchFont={(fontName) =>
-              setCurrentSettings((prev) => ({ ...prev, font: fontName }))
+              setSettingstate((prev) => ({ ...prev, font: fontName }))
             }
           />
           <SelectionFontButton
-            fontName="Roboto Slab"
-            activeFont={currentSettings.font}
+            fontName="font-robotoSlab"
+            activeFont={settingState.font}
             switchFont={(fontName) =>
-              setCurrentSettings((prev) => ({ ...prev, font: fontName }))
+              setSettingstate((prev) => ({ ...prev, font: fontName }))
             }
           />
           <SelectionFontButton
-            fontName="Space Mono"
-            activeFont={currentSettings.font}
+            fontName="font-spaceMono"
+            activeFont={settingState.font}
             switchFont={(fontName) =>
-              setCurrentSettings((prev) => ({ ...prev, font: fontName }))
+              setSettingstate((prev) => ({ ...prev, font: fontName }))
             }
           />
         </div>
@@ -184,34 +184,25 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
           <h3 className="col-span-3 sm:mr-auto">Color</h3>
           <SelectionColorButton
             color={"red"}
-            activeColor={currentSettings.color}
+            activeColor={settingState.color}
             switchColor={(color) =>
-              setCurrentSettings((prev) => ({ ...prev, color: color }))
+              setSettingstate((prev) => ({ ...prev, color: color }))
             }
           />
           <SelectionColorButton
             color={"cyan"}
-            activeColor={currentSettings.color}
+            activeColor={settingState.color}
             switchColor={(color) =>
-              setCurrentSettings((prev) => ({ ...prev, color: color }))
+              setSettingstate((prev) => ({ ...prev, color: color }))
             }
           />
           <SelectionColorButton
             color={"violet"}
-            activeColor={currentSettings.color}
+            activeColor={settingState.color}
             switchColor={(color) =>
-              setCurrentSettings((prev) => ({ ...prev, color: color }))
+              setSettingstate((prev) => ({ ...prev, color: color }))
             }
           />
-          {/* <SelectionColorButton color={"red"} activeColor={currentSettings.color} switchColor={() =>
-              setCurrentSettings((prev) => ({ ...prev, color: "red" }))
-            } isActive={true} /> */}
-          {/* <SelectionColorButton color={"cyan"} activeColor={currentSettings.color} switchColor={() =>
-              setCurrentSettings((prev) => ({ ...prev, color: "cyan" }))
-            } isActive={false} />
-          <SelectionColorButton color={"violet"} activeColor={currentSettings.color} switchColor={() =>
-              setCurrentSettings((prev) => ({ ...prev, color: "violet" }))
-            } isActive={false} /> */}
         </div>
       </div>
 
