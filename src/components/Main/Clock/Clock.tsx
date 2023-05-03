@@ -20,12 +20,16 @@ const Clock: React.FC = () => {
     useState<BreakTypeInterface>(breakState[0]);
   const ref = useRef<null | HTMLDivElement>(null);
   const [clockWidth, setClockWidth] = useState(300);
-  const [percent, setPercent] = useState(40);
+  const [percent, setPercent] = useState(
+    (100 - (21 * 60) / (18 * 60 - 1)) * 100
+  );
+  // const [percent, setPercent] = useState(40);
   const [browserWidth, setBrowserWidth] = useState<number>(0);
   const [timeClock, setTimeClock] = useState<clockType>({
     minutes: 25,
     seconds: 0,
   });
+  // const [initialTime, setInitialTime] = useState<number>(25 * 60);
   const [initialTime, setInitialTime] = useState<number>(
     timeClock.minutes * 60
   );
@@ -76,11 +80,11 @@ const Clock: React.FC = () => {
     timeClock.seconds,
   ]);
 
-  useEffect(() => {
-    setPercent(
-      100 - ((timeClock.minutes * 60 + timeClock.seconds) / initialTime) * 100
-    );
-  }, [initialTime, timeClock.minutes, timeClock.seconds]);
+  // useEffect(() => {
+  //   setPercent(
+  //     100 - ((timeClock.minutes * 60 + timeClock.seconds) / initialTime) * 100
+  //   );
+  // }, [initialTime, timeClock.minutes, timeClock.seconds]);
   return (
     <div
       ref={ref}
@@ -88,10 +92,12 @@ const Clock: React.FC = () => {
         aspect-square rounded-full flex flex-col justify-center items-center relative"
     >
       <ProgressCircle progress={percent} width={clockWidth} />
-      <ClockTime minutes={timeClock.minutes} seconds={timeClock.seconds} />
+      {/* <ClockTime minutes={timeClock.minutes} seconds={timeClock.seconds} /> */}
+      <ClockTime minutes={17} seconds={59} />
       <ToggleButton
         startClock={startClock}
-        isPaused={settingState.isPaused}
+        // isPaused={settingState.isPaused}
+        isPaused={false}
         color={activeSettings.hover}
       />
     </div>

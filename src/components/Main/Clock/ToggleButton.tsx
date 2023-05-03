@@ -14,7 +14,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
 }) => {
   return (
     <button
-      className={`ml-3 text-700-mobile uppercase sm:text-700-desktop text-D7E0FF z-20 ${color}Hover
+      className={`ml-3 text-700-mobile uppercase sm:text-700-desktop text-D7E0FF pt-1 sm:pt-5 z-20 ${color}Hover
        `}
       onClick={startClock}
     >

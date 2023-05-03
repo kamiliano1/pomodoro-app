@@ -36,7 +36,7 @@ const TypeBreakButton: React.FC<TypeBreakButtonProps> = ({ name }) => {
       <button
         onClick={() => updateBreakType(name)}
         className={` mx-auto font-bold rounded-[26.5px] 
-        text-500-mobile w-[105px] py-[1.031rem] ${
+        text-500-mobile w-[106px] sm:w-[120px] py-[1.031rem] ${
           currentActive === name
             ? backgroundClasses
             : "bg-none text-D7E0FF opacity-40"

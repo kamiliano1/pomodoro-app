@@ -9,7 +9,7 @@ const TypeBreak: React.FC = () => {
     <TypeBreakButton key={item} name={item} />
   ));
   return (
-    <div className="flex p-2 bg-161932 rounded-[31.5px] my-12 ">
+    <div className="flex p-2 bg-161932 rounded-[31.5px] mb-12 sm:mb-[6.8125rem] lg:mb-11">
       {breakButtons}
     </div>
   );

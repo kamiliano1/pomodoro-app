@@ -22,10 +22,14 @@ export default function Home() {
       <main
         className={`min-h-[100vh] ${settingState.font} flex flex-col items-center`}
       >
-        <Image src={webLogo} alt="web logo" className="mx-auto py-8" />
+        <Image
+          loading="eager"
+          src={webLogo}
+          alt="web logo"
+          className="mx-auto pt-8 pb-11 sm:pt-20 sm:pb-14 lg:pt-12"
+        />
         {isModalOpen && <SettingsModal />}
         <TypeBreak />
-
         <div className="self-stretch px-9">
           <Clock />
         </div>
@@ -38,7 +42,7 @@ export default function Home() {
                 isPaused: true,
               }))
             }
-            className="cursor-pointer text-3xl text-D7E0FF opacity-50 hover:opacity-100 mt-20"
+            className="cursor-pointer text-3xl text-D7E0FF opacity-50 hover:opacity-100 mt-20 sm:mt-36 lg:mt-[3.9375rem]"
           />
         )}
       </main>
