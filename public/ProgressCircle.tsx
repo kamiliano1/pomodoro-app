@@ -6,7 +6,7 @@ type ProgressCircleProps = { progress: number; width: number };
 const ProgressCircle: React.FC<ProgressCircleProps> = ({ progress, width }) => {
   const [windowWidth, setWindowWidth] = useState<number>(0);
   const [progressBarHeight, setProgressBarHeight] = useState<"8" | "11">("8");
-  const [progressBarPadding, setProgressBarPadding] = useState<14 | 20>(14);
+  const [progressBarPadding, setProgressBarPadding] = useState<14 | 19>(14);
   const circleBoxDimensions = width - 50;
   const circleCenterValue = circleBoxDimensions / 2;
   const circleRadius = circleCenterValue - progressBarPadding;
@@ -33,7 +33,7 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({ progress, width }) => {
   useEffect(() => {
     if (windowWidth > 675) {
       setProgressBarHeight("11");
-      setProgressBarPadding(20);
+      setProgressBarPadding(19);
       return;
     }
     setProgressBarHeight("8");
