@@ -3,7 +3,9 @@ import { BreakTypeInterface, breakStates } from "@/src/atom/breakTypeAtom";
 import { settingsState } from "@/src/atom/settingsAtom";
 import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import useSettings from "../hooks/useSettings";
+import useSettings from "../../hooks/useSettings";
+import ClockTime from "./ClockTime";
+import ToggleButton from "./ToggleButton";
 
 type clockType = {
   minutes: number;
@@ -27,7 +29,6 @@ const Clock: React.FC = () => {
   const [initialTime, setInitialTime] = useState<number>(
     timeClock.minutes * 60
   );
-
   useEffect(() => {
     setCurrentActiveBreak(breakState.filter((item) => item.isActive)[0]);
     setTimeClock({ minutes: currentActiveBreak.time, seconds: 0 });
@@ -75,12 +76,6 @@ const Clock: React.FC = () => {
     timeClock.seconds,
   ]);
 
-  const clockFont =
-    activeSettings.font === "font-kumbhSans"
-      ? "text-900-mobile-kumbh-sans sm:text-900-desktop-kumbh-sans"
-      : activeSettings.font === "font-robotoSlab"
-      ? "text-900-mobile-roboto-slab sm:text-900-desktop-roboto-slab"
-      : "text-900-mobile-space-mono sm:text-900-desktop-space-mono";
   useEffect(() => {
     setPercent(
       100 - ((timeClock.minutes * 60 + timeClock.seconds) / initialTime) * 100
@@ -93,18 +88,12 @@ const Clock: React.FC = () => {
         aspect-square rounded-full flex flex-col justify-center items-center relative"
     >
       <ProgressCircle progress={percent} width={clockWidth} />
-      <h1 className={`${clockFont} text-D7E0FF z-20`}>
-        {timeClock.minutes < 10 ? `0${timeClock.minutes}` : timeClock.minutes}:
-        {timeClock.seconds < 10 ? `0${timeClock.seconds}` : timeClock.seconds}
-      </h1>
-
-      <button
-        className={`ml-3 text-700-mobile uppercase sm:text-700-desktop text-D7E0FF z-20 ${activeSettings.hover}Hover
-           `}
-        onClick={startClock}
-      >
-        {settingState.isPaused ? "Start" : "Pause"}
-      </button>
+      <ClockTime minutes={timeClock.minutes} seconds={timeClock.seconds} />
+      <ToggleButton
+        startClock={startClock}
+        isPaused={settingState.isPaused}
+        color={activeSettings.hover}
+      />
     </div>
   );
 };

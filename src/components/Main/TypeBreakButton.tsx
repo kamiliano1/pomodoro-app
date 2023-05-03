@@ -28,7 +28,7 @@ const TypeBreakButton: React.FC<TypeBreakButtonProps> = ({ name }) => {
           : { ...item, isActive: false }
       )
     );
-    setSettingState((prev) => ({ ...prev, isPaused: true }));
+    setSettingState((prev) => ({ ...prev, isPaused: true })); //pause after break change
   };
   const backgroundClasses = `bg-${activeSettings.color} text-1E213F`;
   return (

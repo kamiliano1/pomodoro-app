@@ -1,13 +1,7 @@
-import React, {
-  CSSProperties,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { CSSProperties, useEffect, useState } from "react";
+import useSettings from "../src/components/hooks/useSettings";
 
 type ProgressCircleProps = { progress: number; width: number };
-import useSettings from "../src/components/hooks/useSettings";
 
 const ProgressCircle: React.FC<ProgressCircleProps> = ({ progress, width }) => {
   const [windowWidth, setWindowWidth] = useState<number>(0);

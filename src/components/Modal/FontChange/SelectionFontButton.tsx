@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
 import { FontType } from "@/src/atom/settingsAtom";
+import React, { useEffect, useState } from "react";
 type SelectionFontButtonProps = {
   fontName: FontType;
   activeFont: FontType;
@@ -12,9 +12,11 @@ const SelectionFontButton: React.FC<SelectionFontButtonProps> = ({
   switchFont,
 }) => {
   const [isActiveFont, setIsActiveFont] = useState<boolean>(false);
+
   useEffect(() => {
     activeFont === fontName ? setIsActiveFont(true) : setIsActiveFont(false);
   }, [activeFont, fontName]);
+
   return (
     <button
       onClick={() => switchFont(fontName)}
@@ -23,7 +25,7 @@ const SelectionFontButton: React.FC<SelectionFontButtonProps> = ({
           ? "bg-161932 text-white opacity-100 font-bold"
           : "opacity-[0.73]"
       } 
-      rounded-full flex  justify-center items-center `}
+      rounded-full flex justify-center items-center `}
     >
       Aa
     </button>

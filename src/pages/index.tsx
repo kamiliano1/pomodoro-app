@@ -4,7 +4,7 @@ import webLogo from "../../public/logo.svg";
 import SettingsModal from "../components/Modal/SettingsModal";
 import { settingsState } from "@/src/atom/settingsAtom";
 import { useRecoilState } from "recoil";
-import Clock from "../components/Main/Clock";
+import Clock from "../components/Main/Clock/Clock";
 import TypeBreakButton from "../components/Main/TypeBreakButton";
 
 import { SettingIcon } from "@/public/SettingIcon";
@@ -26,7 +26,7 @@ export default function Home() {
         {isModalOpen && <SettingsModal />}
         <TypeBreak />
 
-        <div className="self-stretch px-10">
+        <div className="self-stretch px-9">
           <Clock />
         </div>
         {!settingState.isOpen && (
