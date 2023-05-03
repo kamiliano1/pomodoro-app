@@ -37,7 +37,12 @@ const TypeBreakButton: React.FC<TypeBreakButtonProps> = ({ name }) => {
         onClick={() => updateBreakType(name)}
         className={` mx-auto font-bold rounded-[26.5px] 
         text-500-mobile w-[106px] sm:w-[120px] py-[1.031rem] 
-          hover:text-white hover:opacity-100
+        hover:opacity-100
+          ${
+            activeSettings.color === "70F3F8" && currentActive === name
+              ? "hover:text-F87070"
+              : "hover:text-white"
+          }
          ${
            currentActive === name
              ? backgroundClasses
