@@ -20,7 +20,7 @@ const Clock: React.FC = () => {
     useState<BreakTypeInterface>(breakState[0]);
   const ref = useRef<null | HTMLDivElement>(null);
   const [clockWidth, setClockWidth] = useState(300);
-  const [percent, setPercent] = useState(40);
+  const [percent, setPercent] = useState(0);
   const [browserWidth, setBrowserWidth] = useState<number>(0);
   const [timeClock, setTimeClock] = useState<clockType>({
     minutes: 25,
