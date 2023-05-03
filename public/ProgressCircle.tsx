@@ -6,9 +6,10 @@ type ProgressCircleProps = { progress: number; width: number };
 const ProgressCircle: React.FC<ProgressCircleProps> = ({ progress, width }) => {
   const [windowWidth, setWindowWidth] = useState<number>(0);
   const [progressBarHeight, setProgressBarHeight] = useState<"8" | "11">("8");
+  const [progressBarPadding, setProgressBarPadding] = useState<14 | 20>(14);
   const circleBoxDimensions = width - 50;
   const circleCenterValue = circleBoxDimensions / 2;
-  const circleRadius = circleCenterValue - 6;
+  const circleRadius = circleCenterValue - progressBarPadding;
   const circumference = 2 * Math.PI * circleRadius;
   const { activeSettings } = useSettings();
   const styles: CSSProperties = {
@@ -30,13 +31,19 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({ progress, width }) => {
     };
   }, []);
   useEffect(() => {
-    windowWidth > 675 ? setProgressBarHeight("11") : setProgressBarHeight("8");
+    if (windowWidth > 675) {
+      setProgressBarHeight("11");
+      setProgressBarPadding(20);
+      return;
+    }
+    setProgressBarHeight("8");
+    setProgressBarPadding(14);
+    // windowWidth > 675 ? setProgressBarHeight("11") : setProgressBarHeight("8");
   }, [windowWidth]);
 
   return (
-    <div className="aspect-square rounded-full p-2 absolute progress__div bg-161932">
+    <div className="aspect-square rounded-full  absolute progress__div bg-161932">
       <svg
-        className=""
         width={circleBoxDimensions}
         height={circleBoxDimensions}
         viewBox={`0 0 ${circleBoxDimensions} ${circleBoxDimensions}`}
