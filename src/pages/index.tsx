@@ -26,7 +26,7 @@ export default function Home() {
           loading="eager"
           src={webLogo}
           alt="web logo"
-          className="mx-auto pt-8 pb-11 sm:pt-20 sm:pb-14 lg:pt-[3.25rem["
+          className="mx-auto pt-8 pb-11 sm:pt-20 sm:pb-14 lg:pt-[3rem]"
         />
         {isModalOpen && <SettingsModal />}
         <TypeBreak />
