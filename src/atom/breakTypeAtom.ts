@@ -1,5 +1,6 @@
 import { atom } from "recoil";
 import { BreakType } from "./settingsAtom";
+
 export type BreakTypeInterface = {
   name: BreakType;
   isActive: boolean;
