@@ -30,7 +30,7 @@ const SettingsModal: React.FC<SettingsModalProps> = () => {
   };
 
   return (
-    <div className="fixed z-50 w-full h-full sm:flex items-center modalBackground">
+    <div className="fixed z-50 w-full h-full sm:flex sm:items-center modalBackground pt-8 sm:pt-0 ">
       <div
         className={`bg-white rounded-[15px] w-[90%] max-w-[540px] z-50 mx-auto relative ${settingState.font}`}
       >
