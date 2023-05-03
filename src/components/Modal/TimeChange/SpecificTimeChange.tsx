@@ -23,13 +23,14 @@ const SpecificTimeChange: React.FC<SpecificTimeChangeProps> = ({
         if (arrow === "up") {
           return item.name === type ? { ...item, time: item.time + 5 } : item;
         }
+        if (item.name === type && item.time <= 5) return { ...item, time: 1 };
         return item.name === type ? { ...item, time: item.time - 5 } : item;
       })
     );
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentValue =
-      parseFloat(e.target.value) <= 0
+      parseFloat(e.target.value) <= 0 || e.target.value.length === 0
         ? 1
         : parseFloat(e.target.value) > 300
         ? 300
@@ -46,7 +47,6 @@ const SpecificTimeChange: React.FC<SpecificTimeChangeProps> = ({
         {breakName}
       </p>
       <input
-        type="number"
         onChange={handleChange}
         name={breakName}
         value={breakState.find((item) => item.name === breakName)?.time}
